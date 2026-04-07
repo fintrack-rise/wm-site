@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --wm-bg: #09090b;
+  --wm-surface: #121214;
+  --wm-elevated: #18181b;
+  --wm-border: #27272a;
+  --wm-accent: #c9a227;
+  --wm-accent-soft: rgba(201, 162, 39, 0.12);
+  --wm-text: #fafafa;
+  --wm-muted: #a1a1aa;
+  --background: var(--wm-bg);
+  --foreground: var(--wm-text);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+.font-display {
+  font-family: var(--font-sans-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--wm-bg);
+  color: var(--wm-text);
+  font-family: var(--font-sans-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Subtle grid for hero / sections */
+.wm-grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.wm-glow {
+  background: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    rgba(201, 162, 39, 0.15),
+    transparent 70%
+  );
+}
