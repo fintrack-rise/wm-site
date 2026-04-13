@@ -1,9 +1,11 @@
-export const siteName = "Within Market";
+export const siteName = "WithinMarket";
+
+/** Primary mark for header / hero (square launcher asset). */
+export const brandLogoSrc = "/logo-images/ios-192.png";
 
 export const navItems = [
-  { href: "/product", label: "Product" },
-  { href: "/use-cases", label: "Use Cases" },
-  { href: "/about", label: "About" },
+  { href: "/trends", label: "Trends" },
+  { href: "/insights", label: "Insights (Coming Soon)" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

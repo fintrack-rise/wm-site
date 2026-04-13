@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { navItems, siteName } from "@/lib/site";
+import { brandLogoSrc, navItems, siteName } from "@/lib/site";
 import { ButtonLink } from "@/components/button-link";
 
 export function SiteHeader() {
@@ -13,8 +13,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="font-display text-lg font-semibold tracking-tight text-white">
-          {siteName}
+        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label={siteName}>
+          <img
+            src={brandLogoSrc}
+            alt=""
+            width={32}
+            height={32}
+            className="rounded-md border border-zinc-800 bg-zinc-900/50"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
@@ -24,7 +30,7 @@ export function SiteHeader() {
               href={item.href}
               className={`text-sm transition-colors ${
                 pathname === item.href
-                  ? "text-amber-400"
+                  ? "text-zinc-100"
                   : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
@@ -34,8 +40,8 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden md:block">
-          <ButtonLink href="/contact" variant="primary" className="py-2! px-4! text-xs">
-            Request Demo
+          <ButtonLink href="/trends" variant="primary" className="py-2! px-4! text-xs">
+            Explore Trends
           </ButtonLink>
         </div>
 
@@ -69,8 +75,8 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <ButtonLink href="/contact" variant="primary" className="mt-2 w-full text-center">
-              Request Demo
+            <ButtonLink href="/trends" variant="primary" className="mt-2 w-full text-center">
+              Explore Trends
             </ButtonLink>
           </nav>
         </div>

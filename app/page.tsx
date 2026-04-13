@@ -1,114 +1,113 @@
 import { ButtonLink } from "@/components/button-link";
-import { ProductPreviewMock } from "@/components/product-preview-mock";
+import { brandLogoSrc, siteName } from "@/lib/site";
 import type { Metadata } from "next";
-import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Structured Financial Intelligence",
 };
 
-const benefits = [
-  {
-    title: "Connected intelligence",
-    body: "Link experts, assets, and sectors instead of analyzing each in isolation.",
-  },
-  {
-    title: "Signal over noise",
-    body: "Surface patterns and trends instead of drowning in disconnected posts.",
-  },
-  {
-    title: "Personalized research",
-    body: "Follow the analysts that matter and shape your workspace around your lens.",
-  },
-  {
-    title: "Semantic search",
-    body: "Discover relevant insight by meaning and context, not only keywords.",
-  },
-  {
-    title: "Trend-based analysis",
-    body: "See sentiment and recommendation movement over time with clear buckets.",
-  },
-  {
-    title: "Decision-ready workflows",
-    body: "Move from discovery to conviction in one connected research flow.",
-  },
+const problems = [
+  "Investors follow multiple experts across platforms",
+  "Videos are long, often distracting, and not always accessible",
+  "Research reports are dense and difficult for retail users",
+  "Important insights are buried in noise",
 ];
 
-const audiences = [
-  { title: "Active investors", body: "Higher-signal research in less time." },
-  { title: "Research analysts", body: "Structured comparison across narratives and themes." },
-  { title: "Advisory teams", body: "Track movement and surface research faster." },
-  { title: "Financial platforms", body: "An intelligence layer for discovery and premium UX." },
+const solutionFeatures = [
+  "Short summaries for quick understanding",
+  "Deeper breakdowns without unnecessary complexity",
+  "Focused feeds based on user interests",
+  "Ability to explore only relevant insights",
+];
+
+const capabilities = [
+  {
+    title: "OCR for financial documents",
+    body: "Works on scanned and text PDFs, then extracts structured financial content for downstream analysis.",
+  },
+  {
+    title: "Research report simplification",
+    body: "Converts complex reports into concise summaries with clear language and direct takeaways.",
+  },
+  {
+    title: "Chat with citations",
+    body: "Ask questions and get responses linked to specific report sections with source context side-by-side.",
+  },
+  {
+    title: "Graph-based insights",
+    body: "Visualize relationships across assets, sentiment, and experts for a clearer view of market narratives.",
+  },
 ];
 
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-zinc-800/80">
-        <div className="wm-glow pointer-events-none absolute inset-0" aria-hidden />
-        <div className="wm-grid-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-          <p className="text-sm font-medium uppercase tracking-widest text-amber-500/90">
-            Market intelligence
-          </p>
-          <h1 className="font-display mt-4 max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
-            Market intelligence, made decision-ready
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
-            Within Market helps investors cut through noise by turning expert signals, asset trends,
-            sector narratives, and market relationships into one intelligent research experience.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <ButtonLink href="/contact">Request Demo</ButtonLink>
-            <ButtonLink href="/contact" variant="secondary">
-              Get Early Access
-            </ButtonLink>
-            <ButtonLink href="/product" variant="ghost" className="px-0!">
-              Explore Product →
-            </ButtonLink>
+      <section className="border-b border-zinc-800/80">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-zinc-500">WithinMarket</p>
+            <h1 className="font-display mt-5 text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">
+              Turn financial noise into structured, actionable intelligence
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-300">
+              Follow what matters. Skip distractions. Summarized insights from financial experts,
+              research reports, and market signals - all in one focused feed.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <ButtonLink href="/trends">Explore Trends</ButtonLink>
+              <ButtonLink href="/contact" variant="secondary">
+                Contact for Insights
+              </ButtonLink>
+            </div>
+          </div>
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
+            <p className="font-mono text-xs text-zinc-500">Focused feed preview</p>
+            <div className="mt-3 space-y-3">
+              {[
+                {
+                  expert: "R. Shah",
+                  asset: "HUL",
+                  summary: "Margin recovery likely over the next two quarters as input inflation moderates.",
+                },
+                {
+                  expert: "P. Nair",
+                  asset: "TCS",
+                  summary: "Management commentary points to slower near-term demand but resilient deal pipeline.",
+                },
+                {
+                  expert: "A. Gupta",
+                  asset: "NIFTY IT",
+                  summary: "Sentiment shifts from cautious to neutral after revised guidance and valuation reset.",
+                },
+              ].map((item) => (
+                <article key={item.expert + item.asset} className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+                  <p className="font-mono text-xs text-zinc-500">
+                    Expert: {item.expert} | Asset: {item.asset}
+                  </p>
+                  <p className="mt-2 text-sm text-zinc-200">{item.summary}</p>
+                  <button
+                    type="button"
+                    className="mt-3 text-xs text-zinc-400 transition-colors hover:text-zinc-100"
+                  >
+                    View deeper →
+                  </button>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="border-b border-zinc-800/80 bg-zinc-950">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <h2 className="font-display max-w-2xl text-2xl font-semibold text-white sm:text-3xl">
-            Most market research tools give you content. Very few give you clarity.
-          </h2>
-          <p className="mt-6 max-w-2xl text-zinc-400 leading-relaxed">
-            Investors are forced to piece together decisions from fragmented research, disconnected
-            expert commentary, noisy feeds, and tools that surface keywords instead of insight.
-            Within Market turns that fragmented flow into structured, decision-ready intelligence.
-          </p>
-        </div>
-      </section>
-
-      <section className="border-b border-zinc-800/80">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
-            One connected workspace for market research
+            Financial content is fragmented and time-consuming
           </h2>
-          <p className="mt-6 max-w-2xl text-zinc-400 leading-relaxed">
-            Within Market combines asset analysis, sector analysis, expert intelligence, and semantic
-            discovery into a single workflow. Instead of jumping across tools, move from signal
-            discovery to conviction-building in one place.
-          </p>
-        </div>
-      </section>
-
-      <section className="border-b border-zinc-800/80 bg-zinc-950">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
-            Why Within Market stands out
-          </h2>
-          <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {benefits.map((b) => (
-              <li
-                key={b.title}
-                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-6 transition-colors hover:border-zinc-700"
-              >
-                <h3 className="font-medium text-white">{b.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">{b.body}</p>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+            {problems.map((item) => (
+              <li key={item} className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 text-sm text-zinc-300">
+                {item}
               </li>
             ))}
           </ul>
@@ -116,89 +115,148 @@ export default function HomePage() {
       </section>
 
       <section className="border-b border-zinc-800/80">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <h2 className="font-display text-center text-2xl font-semibold text-white sm:text-3xl">
-            Your research workspace
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+            A structured layer on top of financial content
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-sm text-zinc-400">
-            A single surface for analysis, search, and saved insight—without fake performance claims
-            or noisy trading chrome.
+          <p className="mt-5 max-w-3xl text-zinc-300">
+            WithinMarket converts unstructured financial content into structured, queryable
+            intelligence.
           </p>
-          <div className="mt-14">
-            <ProductPreviewMock />
-          </div>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+            {solutionFeatures.map((item) => (
+              <li key={item} className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-5 text-sm text-zinc-300">
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       <section className="border-b border-zinc-800/80 bg-zinc-950">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
-            Not another finance content feed
-          </h2>
-          <div className="mt-10 grid gap-10 md:grid-cols-2">
-            <div>
-              <p className="text-sm font-medium uppercase tracking-wider text-zinc-500">
-                Traditional tools
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">Products</h2>
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            <article className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">Trends (B2C)</p>
+              <h3 className="mt-3 text-xl font-semibold text-white">
+                A focused financial feed for everyday investors
+              </h3>
+              <p className="mt-4 text-sm text-zinc-300">
+                Track insights from financial experts, YouTube content, and research reports -
+                without distractions.
               </p>
-              <ul className="mt-4 space-y-3 text-zinc-400">
-                <li>• Isolated content without relationships</li>
-                <li>• Keyword search that misses context</li>
-                <li>• Information overload</li>
-                <li>• Weak links between experts, sectors, and assets</li>
+              <ul className="mt-5 space-y-2 text-sm text-zinc-300">
+                <li>- AI summaries of YouTube videos</li>
+                <li>- Simplified research report insights</li>
+                <li>- Search across experts and assets</li>
+                <li>- Feed personalized to user interests</li>
               </ul>
-            </div>
-            <div>
-              <p className="text-sm font-medium uppercase tracking-wider text-amber-500/90">
-                Within Market
+              <p className="mt-5 text-xs text-zinc-500">
+                Unlike YouTube: no distractions. Unlike Twitter: structured, signal-focused insights.
               </p>
-              <ul className="mt-4 space-y-3 text-zinc-300">
-                <li>• Intelligence organized around decisions</li>
-                <li>• Trends and relationships surfaced clearly</li>
-                <li>• Personalization through expert follows</li>
-                <li>• Faster discovery of what matters</li>
+              <div className="mt-6">
+                <ButtonLink href="/trends">Go to Trends App</ButtonLink>
+              </div>
+            </article>
+
+            <article className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+                Insights (B2B - Coming Soon)
+              </p>
+              <h3 className="mt-3 text-xl font-semibold text-white">
+                Intelligence layer for financial professionals
+              </h3>
+              <p className="mt-4 text-sm text-zinc-300">
+                Designed for wealth managers, advisors, and financial institutions to extract
+                structured insights from large volumes of financial documents.
+              </p>
+              <ul className="mt-5 space-y-2 text-sm text-zinc-300">
+                <li>- Document ingestion (PDF, scanned reports)</li>
+                <li>- OCR for financial documents</li>
+                <li>- RAG-based querying</li>
+                <li>- Chat with citations from research reports</li>
+                <li>- Analytics dashboards on extracted data</li>
               </ul>
-            </div>
+              <p className="mt-5 text-xs text-zinc-500">Deployment: SaaS and on-premise</p>
+              <div className="mt-6">
+                <ButtonLink href="/contact" variant="secondary">
+                  Contact for Early Access
+                </ButtonLink>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
       <section className="border-b border-zinc-800/80">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
-            Who it is for
+            Built on a financial knowledge graph
           </h2>
-          <ul className="mt-12 grid gap-6 sm:grid-cols-2">
-            {audiences.map((a) => (
-              <li
-                key={a.title}
-                className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-6"
-              >
-                <h3 className="font-medium text-white">{a.title}</h3>
-                <p className="mt-2 text-sm text-zinc-400">{a.body}</p>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-10 text-center">
-            <Link href="/use-cases" className="text-sm text-amber-400 hover:text-amber-300">
-              View use cases →
-            </Link>
-          </p>
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/30 p-6">
+              <ul className="space-y-2 text-sm text-zinc-300">
+                <li>- 25,000+ research reports processed</li>
+                <li>- Entities extracted: assets, sentiment, time horizon, macro indicators, source attribution</li>
+                <li>- Relationships modeled: who said what, about which asset, with what sentiment, in which context</li>
+                <li>- Stored in a graph database (Neo4j)</li>
+              </ul>
+              <p className="mt-5 text-sm text-zinc-400">
+                This enables structured querying, better summarization, and explainable insights with citations.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 font-mono text-xs text-zinc-400">
+              <p className="text-zinc-500">$ query insight_graph</p>
+              <p className="mt-3">Asset: HUL | Sentiment: Positive | Source: XYZ Report</p>
+              <p>Expert: P. Nair | Horizon: 2Q | Context: Margin expansion</p>
+              <p className="mt-4 text-zinc-500">{"// citation backed node path"}</p>
+              <p>(Expert)-[MENTIONED]-&gt;(Asset)-[IN_CONTEXT]-&gt;(MacroIndicator)</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="bg-linear-to-b from-zinc-950 to-zinc-900">
+      <section className="border-b border-zinc-800/80 bg-zinc-950">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+            From documents to decisions
+          </h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {capabilities.map((item) => (
+              <article key={item.title} className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+                <h3 className="text-base font-medium text-white">{item.title}</h3>
+                <p className="mt-2 text-sm text-zinc-300">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-zinc-800/80">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+            Powered by the same system behind Trends
+          </h2>
+          <p className="mt-5 max-w-3xl text-zinc-300">
+            The same intelligence engine powers both investor-facing summaries in Trends and
+            enterprise-grade Insights workflows.
+          </p>
+          <div className="mt-8 rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/30 p-8 text-sm text-zinc-500">
+            Demo placeholder: workflow preview and live query console
+          </div>
+        </div>
+      </section>
+
+      <section>
         <div className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 lg:px-8">
-          <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
-            See how modern market research should feel
+          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
+            Start exploring structured financial insights
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-zinc-400">
-            Move from fragmented information to connected insight—faster, clearer, and more
-            actionable.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <ButtonLink href="/contact">Book a Demo</ButtonLink>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <ButtonLink href="/trends">Explore Trends</ButtonLink>
             <ButtonLink href="/contact" variant="secondary">
-              Talk to Us
+              Contact Sales
             </ButtonLink>
           </div>
         </div>

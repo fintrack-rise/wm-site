@@ -11,7 +11,7 @@ export function SiteFooter() {
               {siteName}
             </p>
             <p className="mt-2 max-w-sm text-sm text-zinc-500">
-              AI-powered market intelligence for research-first investors and teams.
+              Turn financial noise into structured, actionable intelligence.
             </p>
           </div>
           <nav className="flex flex-wrap gap-x-8 gap-y-3" aria-label="Footer">

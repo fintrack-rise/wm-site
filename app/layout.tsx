@@ -20,11 +20,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 export const metadata: Metadata = {
   ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
   title: {
-    default: `${siteName} | AI-Powered Market Intelligence Platform`,
+    default: `${siteName} | Structured Financial Intelligence`,
     template: `%s | ${siteName}`,
   },
   description:
-    "Within Market helps investors and research teams analyze assets, sectors, and expert conviction through connected intelligence, semantic search, and decision-ready market research workflows.",
+    "WithinMarket helps investors and financial professionals turn fragmented financial content into structured, actionable intelligence.",
   keywords: [
     "market intelligence platform",
     "investor research platform",
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName,
-    title: `${siteName} | AI-Powered Market Intelligence Platform`,
+    title: `${siteName} | Structured Financial Intelligence`,
     description:
-      "Connected intelligence for assets, sectors, and experts. Research-first workflows with semantic discovery.",
+      "Summarized financial insights from experts, research reports, and market signals in one focused feed.",
   },
 };
 
