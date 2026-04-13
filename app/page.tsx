@@ -46,7 +46,14 @@ export default function HomePage() {
       <section className="border-b border-zinc-800/80">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-zinc-500">WithinMarket</p>
+            <Image
+              src={brandLogoSrc}
+              alt={siteName}
+              width={160}
+              height={58}
+              priority
+              className="h-[58px] w-[160px] rounded-md border border-zinc-800 bg-zinc-900/50 object-contain"
+            />
             <h1 className="font-display mt-5 text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">
               Turn financial noise into structured, actionable intelligence
             </h1>

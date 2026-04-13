@@ -12,14 +12,14 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2" aria-label={siteName}>
           <img
             src={brandLogoSrc}
             alt=""
-            width={32}
-            height={32}
-            className="rounded-md border border-zinc-800 bg-zinc-900/50"
+            width={160}
+            height={58}
+            className="h-[58px] w-[160px] rounded-md border border-zinc-800 bg-zinc-900/50 object-contain"
           />
         </Link>
 
@@ -28,11 +28,10 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className={`text-sm transition-colors ${
-                pathname === item.href
+              className={`text-sm transition-colors ${pathname === item.href
                   ? "text-zinc-100"
                   : "text-zinc-400 hover:text-zinc-200"
-              }`}
+                }`}
             >
               {item.label}
             </Link>
