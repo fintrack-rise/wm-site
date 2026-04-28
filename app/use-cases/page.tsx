@@ -36,13 +36,13 @@ const scenarios = [
 export default function UseCasesPage() {
   return (
     <div>
-      <section className="relative overflow-hidden border-b border-zinc-800/80">
-        <div className="wm-grid-bg pointer-events-none absolute inset-0 opacity-30" aria-hidden />
+      <section className="relative overflow-hidden border-b border-zinc-200 bg-white">
+        <div className="wm-grid-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <h1 className="font-display max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <h1 className="font-display max-w-3xl text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
             Built for people who need signal, not noise
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-zinc-400">
+          <p className="mt-6 max-w-2xl text-lg text-zinc-600">
             Whether you invest, analyze, advise, or build products—Within Market is designed around
             decision-ready research workflows.
           </p>
@@ -54,24 +54,24 @@ export default function UseCasesPage() {
           {blocks.map((b) => (
             <li
               key={b.title}
-              className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-8"
+              className="rounded-xl border border-zinc-200 bg-zinc-50 p-8"
             >
-              <h2 className="font-display text-lg font-semibold text-white">{b.title}</h2>
-              <p className="mt-3 text-zinc-400 leading-relaxed">{b.body}</p>
+              <h2 className="font-display text-lg font-semibold text-zinc-900">{b.title}</h2>
+              <p className="mt-3 text-zinc-600 leading-relaxed">{b.body}</p>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="border-t border-zinc-800/80 bg-zinc-950">
+      <section className="border-t border-zinc-200 bg-zinc-50">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <h2 className="font-display text-xl font-semibold text-white sm:text-2xl">
+          <h2 className="font-display text-xl font-semibold text-zinc-900 sm:text-2xl">
             Example workflows
           </h2>
-          <ul className="mt-8 space-y-4 text-zinc-300">
+          <ul className="mt-8 space-y-4 text-zinc-700">
             {scenarios.map((s) => (
               <li key={s} className="flex gap-3">
-                <span className="text-amber-500/90">→</span>
+                <span className="text-violet-600">→</span>
                 {s}
               </li>
             ))}

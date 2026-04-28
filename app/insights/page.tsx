@@ -11,10 +11,10 @@ export default function InsightsPage() {
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
         Insights (Coming Soon)
       </p>
-      <h1 className="font-display mt-4 text-4xl font-semibold text-white">
+      <h1 className="font-display mt-4 text-4xl font-semibold text-zinc-900">
         Intelligence layer for financial professionals
       </h1>
-      <p className="mt-5 max-w-2xl text-zinc-300">
+      <p className="mt-5 max-w-2xl text-zinc-600">
         Enterprise workflows for document ingestion, OCR, RAG-based querying, and citation-backed
         analysis over research reports.
       </p>

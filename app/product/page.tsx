@@ -43,14 +43,14 @@ const steps = [
 
 export default function ProductPage() {
   return (
-    <div className="border-b border-zinc-800/80">
-      <section className="relative overflow-hidden border-b border-zinc-800/80">
+    <div className="border-b border-zinc-200">
+      <section className="relative overflow-hidden border-b border-zinc-200 bg-white">
         <div className="wm-glow pointer-events-none absolute inset-0 opacity-60" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <h1 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
             Product overview
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-zinc-400 leading-relaxed">
+          <p className="mt-6 max-w-2xl text-lg text-zinc-600 leading-relaxed">
             Within Market is a market intelligence platform that organizes research around assets,
             sectors, experts, and emerging market themes.
           </p>
@@ -58,34 +58,34 @@ export default function ProductPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <h2 className="font-display text-xl font-semibold text-white sm:text-2xl">
+        <h2 className="font-display text-xl font-semibold text-zinc-900 sm:text-2xl">
           Core capabilities
         </h2>
         <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((c) => (
             <li
               key={c.title}
-              className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-6"
+              className="rounded-xl border border-zinc-200 bg-zinc-50 p-6"
             >
-              <h3 className="font-medium text-white">{c.title}</h3>
-              <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{c.body}</p>
+              <h3 className="font-medium text-zinc-900">{c.title}</h3>
+              <p className="mt-2 text-sm text-zinc-600 leading-relaxed">{c.body}</p>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="border-t border-zinc-800/80 bg-zinc-950">
+      <section className="border-t border-zinc-200 bg-zinc-50">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <h2 className="font-display text-xl font-semibold text-white sm:text-2xl">
+          <h2 className="font-display text-xl font-semibold text-zinc-900 sm:text-2xl">
             How it works
           </h2>
           <ol className="mt-10 space-y-6">
             {steps.map((s, i) => (
               <li key={s} className="flex gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-amber-500/40 bg-amber-500/10 text-sm font-medium text-amber-400">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-violet-300 bg-violet-50 text-sm font-medium text-violet-800">
                   {i + 1}
                 </span>
-                <p className="pt-1 text-zinc-300">{s}</p>
+                <p className="pt-1 text-zinc-700">{s}</p>
               </li>
             ))}
           </ol>
@@ -93,10 +93,10 @@ export default function ProductPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <h2 className="font-display text-xl font-semibold text-white sm:text-2xl">
+        <h2 className="font-display text-xl font-semibold text-zinc-900 sm:text-2xl">
           Built for serious research
         </h2>
-        <p className="mt-6 max-w-2xl text-zinc-400 leading-relaxed">
+        <p className="mt-6 max-w-2xl text-zinc-600 leading-relaxed">
           The platform combines structured market data, connected relationship intelligence,
           AI-powered semantic retrieval, and a modern web architecture—so teams can ship a credible,
           scalable intelligence experience.

@@ -10,27 +10,33 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  const isActive = (href: string) => {
+    if (href.startsWith("/#")) return false;
+    return pathname === href || (href !== "/" && pathname.startsWith(href));
+  };
+
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/85 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2" aria-label={siteName}>
           <img
             src={brandLogoSrc}
             alt=""
-            width={160}
-            height={58}
-            className="h-[58px] w-[160px] rounded-md border border-zinc-800 bg-zinc-900/50 object-contain"
+            width={44}
+            height={44}
+            className="h-10 w-10 rounded-lg border border-zinc-200 bg-white object-contain shadow-sm"
           />
+          <span className="font-display hidden text-sm font-semibold tracking-tight text-zinc-900 sm:inline">
+            {siteName}
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`text-sm transition-colors ${pathname === item.href
-                  ? "text-zinc-100"
-                  : "text-zinc-400 hover:text-zinc-200"
+              className={`text-sm transition-colors ${isActive(item.href) ? "text-zinc-900" : "text-zinc-600 hover:text-zinc-900"
                 }`}
             >
               {item.label}
@@ -38,7 +44,13 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-3 sm:flex">
+          <Link
+            href="/contact"
+            className="hidden text-sm text-zinc-600 transition-colors hover:text-zinc-900 md:inline"
+          >
+            Talk to us
+          </Link>
           <ButtonLink href="/trends" variant="primary" className="py-2! px-4! text-xs">
             Explore Trends
           </ButtonLink>
@@ -46,7 +58,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="rounded-md p-2 text-zinc-300 md:hidden"
+          className="rounded-lg p-2 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 lg:hidden"
           aria-expanded={open}
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
@@ -62,21 +74,26 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div className="border-t border-zinc-800 bg-zinc-950 px-4 py-4 md:hidden">
-          <nav className="flex flex-col gap-3" aria-label="Mobile">
+        <div className="border-t border-zinc-200 bg-white px-4 py-4 lg:hidden">
+          <nav className="flex flex-col gap-1" aria-label="Mobile">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm text-zinc-300"
+                className="rounded-lg px-3 py-2.5 text-sm text-zinc-700 hover:bg-zinc-50"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
-            <ButtonLink href="/trends" variant="primary" className="mt-2 w-full text-center">
-              Explore Trends
-            </ButtonLink>
+            <div className="mt-3 flex flex-col gap-2 border-t border-zinc-200 pt-4">
+              <ButtonLink href="/contact" variant="secondary" className="w-full text-center">
+                Talk to us
+              </ButtonLink>
+              <ButtonLink href="/trends" variant="primary" className="w-full text-center">
+                Explore Trends
+              </ButtonLink>
+            </div>
           </nav>
         </div>
       ) : null}
