@@ -5,6 +5,7 @@ export function wmTrack(
   event: string,
   properties?: Record<string, string | number | boolean | null | undefined>
 ): void {
+  if (process.env.NODE_ENV !== "production") return;
   if (!process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN) return;
   try {
     posthog.capture(event, {
