@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowRight, Check } from "lucide-react";
+import { wmTrack } from "@/lib/wm-analytics";
 
 const plans = [
   {
@@ -54,6 +56,7 @@ const plans = [
 ];
 
 export function PricingSection() {
+  const pathname = usePathname();
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
@@ -84,7 +87,14 @@ export function PricingSection() {
             Monthly
           </span>
           <button
-            onClick={() => setIsAnnual(!isAnnual)}
+            onClick={() => {
+              const next = !isAnnual;
+              wmTrack("wm_site_pricing_billing_toggle", {
+                pathname,
+                is_annual: next,
+              });
+              setIsAnnual(next);
+            }}
             className="relative w-14 h-7 bg-foreground/10 rounded-full p-1 transition-colors hover:bg-foreground/20"
           >
             <div
@@ -157,6 +167,15 @@ export function PricingSection() {
 
               {/* CTA */}
               <button
+                type="button"
+                onClick={() =>
+                  wmTrack("wm_site_pricing_plan_cta_click", {
+                    pathname,
+                    plan: plan.name,
+                    cta: plan.cta,
+                    is_annual: isAnnual,
+                  })
+                }
                 className={`w-full py-4 flex items-center justify-center gap-2 text-sm font-medium transition-all group ${
                   plan.popular
                     ? "bg-foreground text-primary-foreground hover:bg-foreground/90"
@@ -173,7 +192,11 @@ export function PricingSection() {
         {/* Bottom Note */}
         <p className="mt-12 text-center text-sm text-muted-foreground">
           All plans include automatic updates, HTTPS, and DDoS protection.{" "}
-          <a href="#" className="underline underline-offset-4 hover:text-foreground transition-colors">
+          <a
+            href="#"
+            onClick={() => wmTrack("wm_site_pricing_compare_features_click", { pathname })}
+            className="underline underline-offset-4 hover:text-foreground transition-colors"
+          >
             Compare all features
           </a>
         </p>

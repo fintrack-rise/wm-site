@@ -1,7 +1,9 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { AnimatedWave } from "./animated-wave";
+import { wmTrack } from "@/lib/wm-analytics";
 
 const footerLinks = {
   Product: [
@@ -27,6 +29,8 @@ const socialLinks = [
 ];
 
 export function FooterSection() {
+  const pathname = usePathname();
+
   return (
     <footer className="relative border-t border-foreground/10">
       {/* Animated wave background */}
@@ -40,7 +44,11 @@ export function FooterSection() {
           <div className="grid grid-cols-2 md:grid-cols-6 gap-12 lg:gap-8">
             {/* Brand Column */}
             <div className="col-span-2">
-              <a href="#" className="inline-flex items-center gap-2 mb-6">
+              <a
+                href="/"
+                className="inline-flex items-center gap-2 mb-6"
+                onClick={() => wmTrack("wm_site_footer_logo_click", { pathname })}
+              >
                 <span className="text-2xl font-display">Within Market</span>
                 <span className="text-xs text-muted-foreground font-mono">TM</span>
               </a>
@@ -55,6 +63,13 @@ export function FooterSection() {
                   <a
                     key={link.name}
                     href={link.href}
+                    onClick={() =>
+                      wmTrack("wm_site_footer_social_click", {
+                        pathname,
+                        network: link.name,
+                        href: link.href,
+                      })
+                    }
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group"
                   >
                     {link.name}
@@ -73,6 +88,14 @@ export function FooterSection() {
                     <li key={link.name}>
                       <a
                         href={link.href}
+                        onClick={() =>
+                          wmTrack("wm_site_footer_link_click", {
+                            pathname,
+                            category: title,
+                            label: link.name,
+                            href: link.href,
+                          })
+                        }
                         className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
                       >
                         {link.name}

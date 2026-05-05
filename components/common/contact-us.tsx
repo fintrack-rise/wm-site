@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { usePathname } from "next/navigation";
+import { wmTrack } from "@/lib/wm-analytics";
 
 type ContactUsProps = {
   buttonClassName?: string;
@@ -9,6 +11,7 @@ type ContactUsProps = {
 };
 
 export function ContactUs({ buttonClassName, buttonLabel = "Contact us" }: ContactUsProps) {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [result, setResult] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,6 +49,7 @@ export function ContactUs({ buttonClassName, buttonLabel = "Contact us" }: Conta
 
       const data = await response.json();
       if (data.success) {
+        wmTrack("wm_site_contact_form_submitted", { pathname, button_label: buttonLabel });
         setResult("Thanks! Your message has been sent.");
         event.currentTarget.reset();
       } else {
@@ -62,7 +66,10 @@ export function ContactUs({ buttonClassName, buttonLabel = "Contact us" }: Conta
     <>
       <button
         type="button"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          wmTrack("wm_site_contact_us_click", { pathname, button_label: buttonLabel });
+          setIsOpen(true);
+        }}
         className={
           buttonClassName ??
           "rounded-full bg-foreground px-6 py-2 text-sm text-background transition hover:bg-foreground/90"

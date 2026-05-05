@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedTetrahedron } from "@/components/common/animated-tetrahedron";
 import { ContactUs } from "@/components/common/contact-us";
+import { wmTrack } from "@/lib/wm-analytics";
 
 export function CtaSection() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -65,7 +68,14 @@ export function CtaSection() {
                   <Button
                     size="lg"
                     className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
-                    onClick={() => window.open("https://trends.withinmarket.com", "_blank", "noopener,noreferrer")}
+                    onClick={() => {
+                      wmTrack("wm_site_start_trends_app_click", {
+                        pathname,
+                        section: "cta_banner",
+                        page: "retail",
+                      });
+                      window.open("https://trends.withinmarket.com", "_blank", "noopener,noreferrer");
+                    }}
                   >
                     Start with trends app
                     <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />

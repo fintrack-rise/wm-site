@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ContactUs } from "@/components/common/contact-us";
+import { wmTrack } from "@/lib/wm-analytics";
 
 const navLinks = [
   { name: "Retail", href: "/retail" },
@@ -12,8 +14,13 @@ const navLinks = [
 ];
 
 export function Navigation() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const trackNav = (label: string, href: string, placement: "header_desktop" | "header_mobile") => {
+    wmTrack("wm_site_nav_click", { label, href, placement, pathname });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +48,11 @@ export function Navigation() {
             }`}
         >
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 group">
+          <a
+            href="/"
+            className="flex items-center gap-2 group"
+            onClick={() => wmTrack("wm_site_logo_click", { pathname, variant: "business_nav" })}
+          >
             <span className={`font-display tracking-tight transition-all duration-500 ${isScrolled ? "text-xl" : "text-2xl"}`}>Within Market</span>
           </a>
 
@@ -51,6 +62,7 @@ export function Navigation() {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={() => trackNav(link.name, link.href, "header_desktop")}
                 className="text-sm text-foreground/70 hover:text-foreground transition-colors duration-300 relative group"
               >
                 {link.name}
@@ -66,7 +78,11 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => {
+              const next = !isMobileMenuOpen;
+              wmTrack("wm_site_mobile_menu_toggle", { open: next, pathname });
+              setIsMobileMenuOpen(next);
+            }}
             className="md:hidden p-2"
             aria-label="Toggle menu"
           >
@@ -95,7 +111,10 @@ export function Navigation() {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => {
+                  trackNav(link.name, link.href, "header_mobile");
+                  setIsMobileMenuOpen(false);
+                }}
                 className={`text-5xl font-display text-foreground hover:text-muted-foreground transition-all duration-500 ${isMobileMenuOpen
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4"
@@ -116,7 +135,10 @@ export function Navigation() {
           >
             <a
               href="#"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => {
+                wmTrack("wm_site_sign_in_click", { pathname, placement: "mobile_menu" });
+                setIsMobileMenuOpen(false);
+              }}
               className="flex-1 rounded-full border border-foreground/20 px-5 py-3 text-center text-base transition hover:bg-foreground/5"
             >
               Sign in

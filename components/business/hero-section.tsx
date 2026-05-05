@@ -1,15 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSphere } from "@/components/common/animated-sphere";
+import { wmTrack } from "@/lib/wm-analytics";
 
 const words = ["filter", "discover", "analyze", "act"];
 
 export function HeroSection() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
+
+  const openAppFromBusinessHero = () => {
+    wmTrack("wm_site_experience_insights_app_click", {
+      pathname,
+      section: "hero",
+      cta_label: "experience_insights_app",
+    });
+    window.open("https://trends.withinmarket.com", "_blank", "noopener,noreferrer");
+  };
 
   useEffect(() => {
     setIsVisible(true);
@@ -117,7 +129,7 @@ export function HeroSection() {
             <Button
               size="lg"
               className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
-              onClick={() => window.open("https://trends.withinmarket.com", "_blank", "noopener,noreferrer")}
+              onClick={openAppFromBusinessHero}
             >
               Experience insights app
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
@@ -126,6 +138,9 @@ export function HeroSection() {
               size="lg"
               variant="outline"
               className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
+              onClick={() =>
+                wmTrack("wm_site_watch_demo_click", { pathname, section: "hero", page: "business" })
+              }
             >
               Watch demo
             </Button>
