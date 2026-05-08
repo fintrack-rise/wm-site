@@ -52,6 +52,7 @@ export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const touchStartXRef = useRef<number | null>(null);
 
   const openTrendsApp = (ctaLabel: string) => {
@@ -78,6 +79,17 @@ export function HeroSection() {
   const goToPrevSlide = () => {
     setSlideIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
   };
+
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsLightboxOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isLightboxOpen]);
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
@@ -182,7 +194,7 @@ export function HeroSection() {
           }`}
       >
         <div
-          className="rounded-2xl border border-foreground/10 bg-background/75 backdrop-blur-sm p-3 sm:p-4 shadow-xl"
+          className="rounded-2xl border border-foreground/10 bg-background p-3 sm:p-4"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           onTouchStart={(e) => {
@@ -210,6 +222,16 @@ export function HeroSection() {
               ? "aspect-9/18 max-h-[65vh] mx-auto max-w-[280px] sm:max-w-[320px] md:max-w-[360px]"
               : "aspect-16/10 max-h-[52vh] md:max-h-[56vh]"
               }`}
+            role="button"
+            tabIndex={0}
+            aria-label="Open screenshot in full screen"
+            onClick={() => setIsLightboxOpen(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setIsLightboxOpen(true);
+              }
+            }}
           >
             <Image
               key={activeSlide.src}
@@ -259,6 +281,41 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+
+      {isLightboxOpen ? (
+        <div
+          className="fixed inset-0 z-80 bg-black/90 p-4 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Screenshot preview"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          <button
+            type="button"
+            className="absolute right-4 top-4 z-20 rounded-full bg-white/90 px-3 py-1.5 text-sm font-medium text-black shadow-sm hover:bg-white"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsLightboxOpen(false);
+            }}
+            aria-label="Close full screen preview"
+          >
+            Close
+          </button>
+          <div
+            className="relative mx-auto h-full w-full max-w-7xl pt-14"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={activeSlide.src}
+              alt={activeSlide.caption}
+              fill
+              sizes="100vw"
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+      ) : null}
 
       {/* Scroll indicator */}
 
