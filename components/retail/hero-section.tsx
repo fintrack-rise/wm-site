@@ -1,18 +1,58 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSphere } from "@/components/common/animated-sphere";
 import { wmTrack } from "@/lib/wm-analytics";
 
-const words = ["filter", "discover", "analyze", "act"];
+type HeroSlide = {
+  src: string;
+  caption: string;
+  device: "desktop" | "mobile";
+};
+
+const heroSlides: HeroSlide[] = [
+  {
+    src: "/retail-app-shots/mobile/feed.jpeg",
+    caption: "Focused feed of market signals from experts you follow",
+    device: "mobile",
+  },
+  {
+    src: "/retail-app-shots/mobile/search.jpeg",
+    caption: "Search across reports, videos, and expert opinions in seconds",
+    device: "mobile",
+  },
+  {
+    src: "/retail-app-shots/desktop/chat-citation.png",
+    caption: "Ask questions and get source-backed answers with citations",
+    device: "desktop",
+  },
+  {
+    src: "/retail-app-shots/desktop/sector-analysis.png",
+    caption: "Understand sector-level trends with structured analysis",
+    device: "desktop",
+  },
+  {
+    src: "/retail-app-shots/mobile/asset-analysis.jpeg",
+    caption: "Analyze assets quickly with clear, actionable breakdowns",
+    device: "mobile",
+  },
+  {
+    src: "/retail-app-shots/desktop/expert-analysis.png",
+    caption: "Track expert conviction, calls, and changing market views",
+    device: "desktop",
+  },
+];
 
 export function HeroSection() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
-  const [wordIndex, setWordIndex] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartXRef = useRef<number | null>(null);
 
   const openTrendsApp = (ctaLabel: string) => {
     wmTrack("wm_site_experience_trends_app_click", { pathname, section: "hero", cta_label: ctaLabel });
@@ -24,11 +64,20 @@ export function HeroSection() {
   }, []);
 
   useEffect(() => {
+    if (isPaused) return;
     const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
+      setSlideIndex((prev) => (prev + 1) % heroSlides.length);
+    }, 3500);
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused]);
+
+  const activeSlide = heroSlides[slideIndex];
+  const goToNextSlide = () => {
+    setSlideIndex((prev) => (prev + 1) % heroSlides.length);
+  };
+  const goToPrevSlide = () => {
+    setSlideIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
@@ -82,94 +131,132 @@ export function HeroSection() {
               }`}
           >
             <span className="block">The platform</span>
-            <span className="block">
-              to{" "}
-              <span className="relative inline-block">
-                <span
-                  key={wordIndex}
-                  className="inline-flex"
-                >
-                  {words[wordIndex].split("").map((char, i) => (
-                    <span
-                      key={`${wordIndex}-${i}`}
-                      className="inline-block animate-char-in"
-                      style={{
-                        animationDelay: `${i * 50}ms`,
-                      }}
-                    >
-                      {char}
-                    </span>
-                  ))}
-                </span>
-                <span className="absolute -bottom-2 left-0 right-0 h-3 bg-foreground/10" />
-              </span>
-            </span>
+            <span className="block">for modern investors</span>
           </h1>
         </div>
 
         {/* Description */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-end">
-          <p
-            className={`text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-xl transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-          >
-            Your toolkit to turn information into intelligence.
-            Track experts, extract signals, and stay ahead of the market.
-          </p>
+        <div className="grid gap-10 items-center">
+          <div className="space-y-8">
+            <p
+              className={`text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-xl transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                }`}
+            >
+              Your toolkit to turn information into intelligence.
+              Track experts, extract signals, and stay ahead of the market.
+            </p>
 
-          {/* CTAs */}
-          <div
-            className={`flex flex-col sm:flex-row items-start gap-4 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-          >
-            <Button
-              size="lg"
-              className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
-              onClick={() => openTrendsApp("experience_trends_app")}
+            {/* CTAs */}
+            <div
+              className={`flex flex-col sm:flex-row items-start gap-4 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                }`}
             >
-              Experience trends app
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
-              onClick={() =>
-                wmTrack("wm_site_watch_demo_click", { pathname, section: "hero", page: "retail" })
-              }
-            >
-              Watch demo
-            </Button>
+              <Button
+                size="lg"
+                className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
+                onClick={() => openTrendsApp("experience_trends_app")}
+              >
+                Experience trends app
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
+                onClick={() =>
+                  wmTrack("wm_site_watch_demo_click", { pathname, section: "hero", page: "retail" })
+                }
+              >
+                Watch demo
+              </Button>
+            </div>
           </div>
+
         </div>
 
       </div>
 
-      {/* Stats marquee - full width outside container */}
+      {/* Embedded app screenshot slider */}
       <div
-        className={`absolute bottom-24 left-0 right-0 transition-all duration-700 delay-500 ${isVisible ? "opacity-100" : "opacity-0"
+        className={`relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-16 lg:px-12 lg:pb-24 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
       >
-        <div className="flex gap-16 marquee whitespace-nowrap">
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex gap-16">
-              {[
-                { value: "10,000+", label: "Insights from experts & reports" },
-                { value: "Follow experts", label: "Track ideas across time" },
-                { value: "Ask anything", label: "AI answers from reports & videos" },
-                { value: "Signal > noise", label: "Focused feeds that matter" },
-                { value: "Source-backed", label: "Every insight with context" },
-                { value: "Multi-asset", label: "Stocks, sectors, macro in one place" },
-              ].map((stat) => (
-                <div key={`${stat.label}-${i}`} className="flex items-baseline gap-4">
-                  <span className="text-4xl lg:text-5xl font-display">{stat.value}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
+        <div
+          className="rounded-2xl border border-foreground/10 bg-background/75 backdrop-blur-sm p-3 sm:p-4 shadow-xl"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={(e) => {
+            setIsPaused(true);
+            const x = e.touches[0]?.clientX;
+            touchStartXRef.current = typeof x === "number" ? x : null;
+          }}
+          onTouchEnd={(e) => {
+            const startX = touchStartXRef.current;
+            const endX = e.changedTouches[0]?.clientX;
+            touchStartXRef.current = null;
+            setIsPaused(false);
+            if (typeof startX !== "number" || typeof endX !== "number") return;
+            const deltaX = endX - startX;
+            if (Math.abs(deltaX) < 50) return;
+            if (deltaX < 0) {
+              goToNextSlide();
+            } else {
+              goToPrevSlide();
+            }
+          }}
+        >
+          <div
+            className={`relative w-full overflow-hidden rounded-xl bg-muted/40 ${activeSlide.device === "mobile"
+              ? "aspect-9/18 max-h-[65vh] mx-auto max-w-[280px] sm:max-w-[320px] md:max-w-[360px]"
+              : "aspect-16/10 max-h-[52vh] md:max-h-[56vh]"
+              }`}
+          >
+            <Image
+              key={activeSlide.src}
+              src={activeSlide.src}
+              alt={activeSlide.caption}
+              fill
+              sizes="(max-width: 768px) 92vw, (max-width: 1280px) 80vw, 1100px"
+              className="object-contain"
+              priority={slideIndex === 0}
+            />
+            <div className="pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-between px-2 md:flex">
+              <button
+                type="button"
+                aria-label="Previous screenshot"
+                className="pointer-events-auto rounded-full bg-background/85 px-3 py-2 text-sm text-foreground shadow-sm transition hover:bg-background"
+                onClick={goToPrevSlide}
+              >
+                Prev
+              </button>
+              <button
+                type="button"
+                aria-label="Next screenshot"
+                className="pointer-events-auto rounded-full bg-background/85 px-3 py-2 text-sm text-foreground shadow-sm transition hover:bg-background"
+                onClick={goToNextSlide}
+              >
+                Next
+              </button>
             </div>
-          ))}
+          </div>
+          <p className="mt-4 text-center text-sm sm:text-base text-muted-foreground">
+            {activeSlide.caption}
+          </p>
+          <p className="mt-1 text-center text-xs text-muted-foreground md:hidden">
+            Swipe to browse screenshots
+          </p>
+          <div className="mt-3 flex items-center justify-center gap-2">
+            {heroSlides.map((slide, idx) => (
+              <button
+                key={slide.src}
+                type="button"
+                className={`h-1.5 rounded-full transition-all ${idx === slideIndex ? "w-6 bg-foreground/70" : "w-2 bg-foreground/25 hover:bg-foreground/40"
+                  }`}
+                onClick={() => setSlideIndex(idx)}
+                aria-label={`Show screenshot ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 

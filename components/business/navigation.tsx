@@ -96,55 +96,57 @@ export function Navigation() {
 
       </nav>
 
-      {/* Mobile Menu - Full Screen Overlay */}
+      {/* Mobile Menu - compact panel */}
       <div
-        className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${isMobileMenuOpen
-          ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none"
+        className={`md:hidden mx-auto mt-2 w-full max-w-[1200px] transition-all duration-300 ${isMobileMenuOpen
+          ? "opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-2 pointer-events-none"
           }`}
-        style={{ top: 0 }}
       >
-        <div className="flex flex-col h-full px-8 pt-28 pb-8">
-          {/* Navigation Links */}
-          <div className="flex-1 flex flex-col justify-center gap-8">
-            {navLinks.map((link, i) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => {
-                  trackNav(link.name, link.href, "header_mobile");
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`text-5xl font-display text-foreground hover:text-muted-foreground transition-all duration-500 ${isMobileMenuOpen
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-                  }`}
-                style={{ transitionDelay: isMobileMenuOpen ? `${i * 75}ms` : "0ms" }}
-              >
-                {link.name}
-              </a>
-            ))}
+        <div className="mx-2 rounded-2xl border border-foreground/10 bg-background/95 backdrop-blur-xl shadow-xl">
+          <div className="flex items-center justify-between border-b border-foreground/10 px-4 py-3">
+            <span className="text-sm font-medium text-muted-foreground">Menu</span>
+            <button
+              type="button"
+              className="rounded-md p-1.5 text-foreground/80 hover:bg-foreground/10"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
 
-          {/* Bottom CTAs */}
-          <div className={`flex gap-4 pt-8 border-t border-foreground/10 transition-all duration-500 ${isMobileMenuOpen
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: isMobileMenuOpen ? "300ms" : "0ms" }}
-          >
-            <a
-              href="#"
-              onClick={() => {
-                wmTrack("wm_site_sign_in_click", { pathname, placement: "mobile_menu" });
-                setIsMobileMenuOpen(false);
-              }}
-              className="flex-1 rounded-full border border-foreground/20 px-5 py-3 text-center text-base transition hover:bg-foreground/5"
-            >
-              Sign in
-            </a>
-            <div className="flex-1">
-              <ContactUs />
+          <div className="max-h-[70vh] overflow-y-auto px-4 py-4">
+            <div className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => {
+                    trackNav(link.name, link.href, "header_mobile");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="rounded-xl px-3 py-3 text-lg font-medium text-foreground hover:bg-foreground/5"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
+
+            <div className="mt-4 flex gap-3 border-t border-foreground/10 pt-4">
+              <a
+                href="#"
+                onClick={() => {
+                  wmTrack("wm_site_sign_in_click", { pathname, placement: "mobile_menu" });
+                  setIsMobileMenuOpen(false);
+                }}
+                className="flex-1 rounded-full border border-foreground/20 px-4 py-2.5 text-center text-sm transition hover:bg-foreground/5"
+              >
+                Sign in
+              </a>
+              <div className="flex-1">
+                <ContactUs />
+              </div>
             </div>
           </div>
         </div>
