@@ -84,8 +84,7 @@ export function HeroSection() {
         {/* Main headline */}
         <div className="mb-12">
           <h1
-            className={`text-[clamp(3rem,12vw,10rem)] font-display leading-[0.9] tracking-tight transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
+            className="font-display text-[clamp(3rem,12vw,10rem)] leading-[0.9] tracking-tight"
           >
             <span className="block">The platform</span>
             <span className="block">

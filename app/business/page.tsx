@@ -1,5 +1,5 @@
-import { BusinessLanding } from "@/components/business/business-landing";
+import { permanentRedirect } from "next/navigation";
 
 export default function BusinessPage() {
-  return <BusinessLanding />;
+  permanentRedirect("/");
 }

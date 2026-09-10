@@ -60,7 +60,7 @@ export function HeroSection() {
         </div>
 
         <h1
-          className={`mb-10 font-display text-[clamp(2.25rem,7vw,6.5rem)] leading-[0.92] tracking-tight transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+          className="mb-10 font-display text-[clamp(2.25rem,7vw,6.5rem)] leading-[0.92] tracking-tight"
         >
           <span className="block">Your investment philosophy.</span>
           <span className="block">Put to work.</span>

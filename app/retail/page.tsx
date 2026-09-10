@@ -1,5 +1,5 @@
-import { RetailLanding } from "@/components/retail/retail-landing";
+import { permanentRedirect } from "next/navigation";
 
 export default function RetailPage() {
-  return <RetailLanding />;
+  permanentRedirect("/");
 }
