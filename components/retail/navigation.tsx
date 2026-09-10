@@ -5,13 +5,11 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ContactUs } from "@/components/common/contact-us";
 import { TRENDS_APP_URL } from "@/lib/trends-app";
-import { wmTrack } from "@/lib/wm-analytics";
+import { wmTrack, wmTrackCta } from "@/lib/wm-analytics";
 
 const navLinks = [
   { name: "Product", href: "/#product" },
   { name: "How it works", href: "/#how-it-works" },
-  { name: "For Investors", href: "/retail" },
-  { name: "For Businesses", href: "/business" },
 ];
 
 export function Navigation() {
@@ -75,7 +73,14 @@ export function Navigation() {
               href={TRENDS_APP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => wmTrack("wm_site_sign_in_click", { pathname, placement: "header_desktop" })}
+              onClick={() =>
+                wmTrackCta({
+                  cta_label: "sign_in",
+                  section: "header_desktop",
+                  pathname,
+                  destination: TRENDS_APP_URL,
+                })
+              }
               className="text-sm text-foreground/70 transition-colors hover:text-foreground"
             >
               Sign in
@@ -138,7 +143,12 @@ export function Navigation() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
-                  wmTrack("wm_site_sign_in_click", { pathname, placement: "mobile_menu" });
+                  wmTrackCta({
+                    cta_label: "sign_in",
+                    section: "mobile_menu",
+                    pathname,
+                    destination: TRENDS_APP_URL,
+                  });
                   setIsMobileMenuOpen(false);
                 }}
                 className="flex-1 rounded-full border border-foreground/20 px-4 py-2.5 text-center text-sm transition hover:bg-foreground/5"

@@ -8,7 +8,7 @@ import { MockWindow } from "@/components/retail/mock-window";
 import { PhilosophyMock } from "@/components/retail/philosophy-mock";
 import { Button } from "@/components/ui/button";
 import { TRENDS_APP_URL } from "@/lib/trends-app";
-import { wmTrack } from "@/lib/wm-analytics";
+import { wmTrackCta } from "@/lib/wm-analytics";
 
 export function HeroSection() {
   const pathname = usePathname();
@@ -19,7 +19,12 @@ export function HeroSection() {
   }, []);
 
   const openTrendsApp = (ctaLabel: string) => {
-    wmTrack("wm_site_experience_trends_app_click", { pathname, section: "hero", cta_label: ctaLabel });
+    wmTrackCta({
+      cta_label: ctaLabel,
+      section: "hero",
+      pathname,
+      destination: TRENDS_APP_URL,
+    });
     window.open(TRENDS_APP_URL, "_blank", "noopener,noreferrer");
   };
 
@@ -84,7 +89,11 @@ export function HeroSection() {
               variant="outline"
               className="h-14 rounded-full border-foreground/20 px-8 text-base hover:bg-foreground/5"
               onClick={() => {
-                wmTrack("wm_site_watch_demo_click", { pathname, section: "hero", page: "retail", cta_label: "see_how_it_works" });
+                wmTrackCta({
+                  cta_label: "see_how_it_works",
+                  section: "hero",
+                  pathname,
+                });
                 document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" });
               }}
             >

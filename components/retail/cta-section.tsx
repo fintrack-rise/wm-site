@@ -7,7 +7,7 @@ import { ContactUs } from "@/components/common/contact-us";
 import { Button } from "@/components/ui/button";
 import { useInView } from "@/hooks/use-in-view";
 import { TRENDS_APP_URL } from "@/lib/trends-app";
-import { wmTrack } from "@/lib/wm-analytics";
+import { wmTrackCta } from "@/lib/wm-analytics";
 import { useState } from "react";
 
 export function CtaSection() {
@@ -56,10 +56,11 @@ export function CtaSection() {
                     size="lg"
                     className="group h-14 rounded-full bg-foreground px-8 text-base text-background hover:bg-foreground/90"
                     onClick={() => {
-                      wmTrack("wm_site_start_trends_app_click", {
-                        pathname,
+                      wmTrackCta({
+                        cta_label: "start_with_philosophy",
                         section: "cta_banner",
-                        page: "retail",
+                        pathname,
+                        destination: TRENDS_APP_URL,
                       });
                       window.open(TRENDS_APP_URL, "_blank", "noopener,noreferrer");
                     }}

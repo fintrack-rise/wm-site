@@ -7,9 +7,8 @@ import { wmTrack } from "@/lib/wm-analytics";
 
 const footerLinks = {
   Product: [
+    { name: "Product", href: "/#product" },
     { name: "How it works", href: "/#how-it-works" },
-    { name: "For investors", href: "/retail" },
-    { name: "For businesses", href: "/business" },
   ],
   Company: [
     { name: "About", href: "#" },

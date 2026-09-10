@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedTetrahedron } from "@/components/common/animated-tetrahedron";
 import { ContactUs } from "@/components/common/contact-us";
-import { wmTrack } from "@/lib/wm-analytics";
+import { TRENDS_APP_URL } from "@/lib/trends-app";
+import { wmTrackCta } from "@/lib/wm-analytics";
 
 export function CtaSection() {
   const pathname = usePathname();
@@ -67,12 +68,13 @@ export function CtaSection() {
                     size="lg"
                     className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
                     onClick={() => {
-                      wmTrack("wm_site_start_insights_app_click", {
-                        pathname,
+                      wmTrackCta({
+                        cta_label: "start_insights_app",
                         section: "cta_banner",
-                        page: "business",
+                        pathname,
+                        destination: TRENDS_APP_URL,
                       });
-                      window.open("https://trends.withinmarket.com", "_blank", "noopener,noreferrer");
+                      window.open(TRENDS_APP_URL, "_blank", "noopener,noreferrer");
                     }}
                   >
                     Start with insights app

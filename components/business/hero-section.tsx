@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSphere } from "@/components/common/animated-sphere";
-import { wmTrack } from "@/lib/wm-analytics";
+import { TRENDS_APP_URL } from "@/lib/trends-app";
+import { wmTrackCta } from "@/lib/wm-analytics";
 
 const words = ["filter", "discover", "analyze", "act"];
 
@@ -15,12 +16,13 @@ export function HeroSection() {
   const [wordIndex, setWordIndex] = useState(0);
 
   const openAppFromBusinessHero = () => {
-    wmTrack("wm_site_experience_insights_app_click", {
-      pathname,
-      section: "hero",
+    wmTrackCta({
       cta_label: "experience_insights_app",
+      section: "hero",
+      pathname,
+      destination: TRENDS_APP_URL,
     });
-    window.open("https://trends.withinmarket.com", "_blank", "noopener,noreferrer");
+    window.open(TRENDS_APP_URL, "_blank", "noopener,noreferrer");
   };
 
   useEffect(() => {
@@ -139,7 +141,11 @@ export function HeroSection() {
               variant="outline"
               className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
               onClick={() =>
-                wmTrack("wm_site_watch_demo_click", { pathname, section: "hero", page: "business" })
+                wmTrackCta({
+                  cta_label: "watch_demo",
+                  section: "hero",
+                  pathname,
+                })
               }
             >
               Watch demo

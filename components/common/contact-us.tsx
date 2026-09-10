@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import { wmTrack } from "@/lib/wm-analytics";
+import { wmTrack, wmTrackCta } from "@/lib/wm-analytics";
 
 type ContactUsProps = {
   buttonClassName?: string;
@@ -67,7 +67,11 @@ export function ContactUs({ buttonClassName, buttonLabel = "Contact us" }: Conta
       <button
         type="button"
         onClick={() => {
-          wmTrack("wm_site_contact_us_click", { pathname, button_label: buttonLabel });
+          wmTrackCta({
+            cta_label: buttonLabel,
+            section: "contact_us",
+            pathname,
+          });
           setIsOpen(true);
         }}
         className={
