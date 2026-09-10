@@ -21,8 +21,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Within Market - Platform for modern investors',
-  description: 'The platform for modern investors. Track insights, decode signals, and stay ahead of the market.',
+  title: 'Within Market — Your investment philosophy. Put to work.',
+  description:
+    'Within Market is an AI-powered investment intelligence platform that understands your investment philosophy, turns it into a strategy, continuously researches and validates it, and monitors your portfolio for what matters.',
   generator: 'v0.app',
 }
 

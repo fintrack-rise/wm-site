@@ -1,30 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedTetrahedron } from "@/components/common/animated-tetrahedron";
 import { ContactUs } from "@/components/common/contact-us";
+import { Button } from "@/components/ui/button";
+import { useInView } from "@/hooks/use-in-view";
+import { TRENDS_APP_URL } from "@/lib/trends-app";
 import { wmTrack } from "@/lib/wm-analytics";
+import { useState } from "react";
 
 export function CtaSection() {
   const pathname = usePathname();
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const { ref, isVisible } = useInView<HTMLDivElement>(0.2);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -35,69 +24,61 @@ export function CtaSection() {
   };
 
   return (
-    <section ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section className="relative overflow-hidden py-24 lg:py-32">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div
-          className={`relative border border-foreground transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+          ref={ref}
+          className={`relative border border-foreground transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
           onMouseMove={handleMouseMove}
         >
-          {/* Spotlight effect */}
           <div
-            className="absolute inset-0 opacity-10 pointer-events-none transition-opacity duration-300"
+            className="pointer-events-none absolute inset-0 opacity-10 transition-opacity duration-300"
             style={{
-              background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(0,0,0,0.15), transparent 40%)`
+              background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(0,0,0,0.15), transparent 40%)`,
             }}
           />
 
-          <div className="relative z-10 px-8 lg:px-16 py-16 lg:py-24">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-              {/* Left content */}
+          <div className="relative z-10 px-8 py-16 lg:px-16 lg:py-24">
+            <div className="flex flex-col items-center justify-between gap-12 lg:flex-row">
               <div className="flex-1">
-                <h2 className="text-4xl lg:text-7xl font-display tracking-tight mb-8 leading-[0.95]">
-                  Clarity is your edge.
+                <h2 className="mb-8 font-display text-4xl leading-[0.95] tracking-tight lg:text-7xl">
+                  You bring the philosophy.
                   <br />
-                  Get started today!
+                  It does the work.
                 </h2>
 
-                <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-xl">
-                  Track insights, decode signals, and stay ahead of the market.
+                <p className="mb-12 max-w-xl text-xl leading-relaxed text-muted-foreground">
+                  Tell Within Market how you invest. It turns that thinking into a strategy, researches and validates it, and comes back when you actually need to decide.
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-start gap-4">
+                <div className="flex flex-col items-start gap-4 sm:flex-row">
                   <Button
                     size="lg"
-                    className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
+                    className="group h-14 rounded-full bg-foreground px-8 text-base text-background hover:bg-foreground/90"
                     onClick={() => {
                       wmTrack("wm_site_start_trends_app_click", {
                         pathname,
                         section: "cta_banner",
                         page: "retail",
                       });
-                      window.open("https://trends.withinmarket.com", "_blank", "noopener,noreferrer");
+                      window.open(TRENDS_APP_URL, "_blank", "noopener,noreferrer");
                     }}
                   >
-                    Start with trends app
-                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    Start with your investment philosophy
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                   <ContactUs buttonClassName="h-14 rounded-full border border-foreground/20 px-8 text-base transition hover:bg-foreground/5" />
                 </div>
-
-                <p className="text-sm text-muted-foreground mt-8 font-mono">
-                  No credit card required
-                </p>
               </div>
 
-              {/* Right animation */}
-              <div className="hidden lg:flex items-center justify-center w-[500px] h-[500px] -mr-16">
+              <div className="-mr-16 hidden h-[500px] w-[500px] items-center justify-center lg:flex">
                 <AnimatedTetrahedron />
               </div>
             </div>
           </div>
 
-          {/* Decorative corner */}
-          <div className="absolute top-0 right-0 w-32 h-32 border-b border-l border-foreground/10" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 border-t border-r border-foreground/10" />
+          <div className="absolute top-0 right-0 h-32 w-32 border-b border-l border-foreground/10" />
+          <div className="absolute bottom-0 left-0 h-32 w-32 border-t border-r border-foreground/10" />
         </div>
       </div>
     </section>

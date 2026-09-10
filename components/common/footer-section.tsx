@@ -7,8 +7,9 @@ import { wmTrack } from "@/lib/wm-analytics";
 
 const footerLinks = {
   Product: [
-    { name: "Trends app for retail", href: "#features" },
-    { name: "Insights app for business", href: "/business" },
+    { name: "How it works", href: "/#how-it-works" },
+    { name: "For investors", href: "/retail" },
+    { name: "For businesses", href: "/business" },
   ],
   Company: [
     { name: "About", href: "#" },
@@ -53,8 +54,8 @@ export function FooterSection() {
                 <span className="text-xs text-muted-foreground font-mono">TM</span>
               </a>
 
-              <p className="text-muted-foreground leading-relaxed mb-8 max-w-xs">
-                The platform for modern investors. Track insights, decode signals, and stay ahead of the market.
+              <p className="mb-8 max-w-xs leading-relaxed text-muted-foreground">
+                Within Market turns your investment philosophy into a continuously working AI investment strategy.
               </p>
 
               {/* Social Links */}

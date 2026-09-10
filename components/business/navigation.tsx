@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ContactUs } from "@/components/common/contact-us";
+import { TRENDS_APP_URL } from "@/lib/trends-app";
 import { wmTrack } from "@/lib/wm-analytics";
 
 const navLinks = [
-  { name: "Retail", href: "/retail" },
-  { name: "Business", href: "/business" },
-  { name: "Features", href: "#features" },
-  { name: "How it works", href: "#how-it-works" },
+  { name: "Product", href: "/#product" },
+  { name: "How it works", href: "/#how-it-works" },
+  { name: "For Investors", href: "/retail" },
+  { name: "For Businesses", href: "/business" },
 ];
 
 export function Navigation() {
@@ -57,7 +58,7 @@ export function Navigation() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden lg:flex items-center gap-6 xl:gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -72,7 +73,16 @@ export function Navigation() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
+            <a
+              href={TRENDS_APP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => wmTrack("wm_site_sign_in_click", { pathname, placement: "header_desktop" })}
+              className="text-sm text-foreground/70 transition-colors hover:text-foreground"
+            >
+              Sign in
+            </a>
             <ContactUs />
           </div>
 
@@ -83,7 +93,7 @@ export function Navigation() {
               wmTrack("wm_site_mobile_menu_toggle", { open: next, pathname });
               setIsMobileMenuOpen(next);
             }}
-            className="md:hidden p-2"
+            className="lg:hidden p-2"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -98,7 +108,7 @@ export function Navigation() {
 
       {/* Mobile Menu - compact panel */}
       <div
-        className={`md:hidden mx-auto mt-2 w-full max-w-[1200px] transition-all duration-300 ${isMobileMenuOpen
+        className={`lg:hidden mx-auto mt-2 w-full max-w-[1200px] transition-all duration-300 ${isMobileMenuOpen
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 -translate-y-2 pointer-events-none"
           }`}
@@ -135,7 +145,9 @@ export function Navigation() {
 
             <div className="mt-4 flex gap-3 border-t border-foreground/10 pt-4">
               <a
-                href="#"
+                href={TRENDS_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => {
                   wmTrack("wm_site_sign_in_click", { pathname, placement: "mobile_menu" });
                   setIsMobileMenuOpen(false);

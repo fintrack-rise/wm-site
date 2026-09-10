@@ -1,25 +1,33 @@
 import { Navigation } from "@/components/retail/navigation";
 import { HeroSection } from "@/components/retail/hero-section";
-import { FeaturesSection } from "@/components/retail/features-section";
+import { ProblemSection } from "@/components/retail/problem-section";
+import { PhilosophySection } from "@/components/retail/philosophy-section";
+import { StrategySection } from "@/components/retail/strategy-section";
+import { ResearchSection } from "@/components/retail/research-section";
+import { ValidationSection } from "@/components/retail/validation-section";
+import { PortfolioSection } from "@/components/retail/portfolio-section";
+import { MonitoringSection } from "@/components/retail/monitoring-section";
+import { LoopSection } from "@/components/retail/loop-section";
 import { FutureCapabilitiesSection } from "@/components/retail/future-capabilities";
-import { InfrastructureSection } from "@/components/retail/infrastructure-section";
-import { MetricsSection } from "@/components/retail/metrics-section";
 import { IntegrationsSection } from "@/components/retail/integrations-section";
-import { SecuritySection } from "@/components/retail/security-section";
-import { DevelopersSection } from "@/components/retail/developers-section";
-import { TestimonialsSection } from "@/components/retail/testimonials-section";
-import { PricingSection } from "@/components/retail/pricing-section";
 import { CtaSection } from "@/components/retail/cta-section";
 import { FooterSection } from "@/components/common/footer-section";
 
 export function RetailLanding() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden noise-overlay">
+    <main className="noise-overlay relative min-h-screen overflow-x-hidden">
       <Navigation />
       <HeroSection />
-      <FeaturesSection />
-      <FutureCapabilitiesSection />
+      <ProblemSection />
+      <PhilosophySection />
+      <StrategySection />
+      <ResearchSection />
+      <ValidationSection />
+      <PortfolioSection />
+      <MonitoringSection />
+      <LoopSection />
       <IntegrationsSection />
+      <FutureCapabilitiesSection />
       <CtaSection />
       <FooterSection />
     </main>
