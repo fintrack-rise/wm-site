@@ -3,6 +3,8 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Required for PostHog: capture endpoints use trailing slashes (/ingest/e/).
+  skipTrailingSlashRedirect: true,
   async redirects() {
     return [
       {
