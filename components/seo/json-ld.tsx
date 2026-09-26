@@ -12,7 +12,7 @@ export function JsonLd() {
         "@id": organizationId,
         name: SITE_NAME,
         url: SITE_URL,
-        logo: `${SITE_URL}/logo-images/android/launchericon-512x512.png`,
+        logo: `${SITE_URL}/brand/logo-1-1.png`,
       },
       {
         "@type": "WebSite",

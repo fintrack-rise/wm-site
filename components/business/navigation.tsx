@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { LOGO_WIDE_HEIGHT, LOGO_WIDE_SRC, LOGO_WIDE_WIDTH } from "@/lib/brand";
 import { ContactUs } from "@/components/common/contact-us";
 import { TRENDS_APP_URL } from "@/lib/trends-app";
 import { wmTrack, wmTrackCta } from "@/lib/wm-analytics";
@@ -52,7 +54,14 @@ export function Navigation() {
             className="flex items-center gap-2 group"
             onClick={() => wmTrack("wm_site_logo_click", { pathname, variant: "business_nav" })}
           >
-            <span className={`font-display tracking-tight transition-all duration-500 ${isScrolled ? "text-xl" : "text-2xl"}`}>Within Market</span>
+            <Image
+              src={LOGO_WIDE_SRC}
+              alt="Within Market"
+              width={LOGO_WIDE_WIDTH}
+              height={LOGO_WIDE_HEIGHT}
+              priority
+              className={`w-auto transition-all duration-500 ${isScrolled ? "h-8" : "h-11"}`}
+            />
           </a>
 
           {/* Desktop Navigation */}

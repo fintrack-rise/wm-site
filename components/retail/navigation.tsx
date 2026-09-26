@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { LOGO_WIDE_HEIGHT, LOGO_WIDE_SRC, LOGO_WIDE_WIDTH } from "@/lib/brand";
 import { ContactUs } from "@/components/common/contact-us";
 import { TRENDS_APP_URL } from "@/lib/trends-app";
 import { wmTrack, wmTrackCta } from "@/lib/wm-analytics";
@@ -46,12 +48,14 @@ export function Navigation() {
             className="group flex shrink-0 items-center gap-2"
             onClick={() => wmTrack("wm_site_logo_click", { pathname, variant: "retail_nav" })}
           >
-            <span className={`font-display tracking-tight whitespace-nowrap transition-all duration-500 ${isScrolled ? "text-xl" : "text-2xl"}`}>
-              Within Market
-            </span>
-            <span className={`hidden font-mono text-muted-foreground transition-all duration-500 sm:inline ${isScrolled ? "mt-0.5 text-[10px]" : "mt-1 text-xs"}`}>
-              TM
-            </span>
+            <Image
+              src={LOGO_WIDE_SRC}
+              alt="Within Market"
+              width={LOGO_WIDE_WIDTH}
+              height={LOGO_WIDE_HEIGHT}
+              priority
+              className={`w-auto transition-all duration-500 ${isScrolled ? "h-8" : "h-11"}`}
+            />
           </a>
 
           <div className="hidden items-center gap-6 xl:gap-10 lg:flex">

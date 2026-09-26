@@ -1,10 +1,15 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "Within Market — Your investment philosophy. Put to work.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const logo = await readFile(path.join(process.cwd(), "public/brand/logo-16-9.png"));
+  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -20,7 +25,7 @@ export default function OpenGraphImage() {
           fontFamily: "Georgia, 'Times New Roman', serif",
         }}
       >
-        <div style={{ display: "flex", fontSize: 28, letterSpacing: "-0.02em" }}>Within Market</div>
+        <img src={logoSrc} alt="" width={240} height={90} />
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ display: "flex", fontSize: 72, lineHeight: 1.05, letterSpacing: "-0.04em", maxWidth: 980 }}>
             Your investment philosophy. Put to work.

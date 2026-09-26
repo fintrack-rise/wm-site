@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { LOGO_SQUARE_SIZE, LOGO_SQUARE_SRC } from "@/lib/brand";
 import { AnimatedWave } from "./animated-wave";
 import { ContactUs } from "./contact-us";
 import { wmTrack } from "@/lib/wm-analytics";
@@ -28,8 +30,13 @@ export function FooterSection() {
                 className="mb-6 inline-flex items-center gap-2"
                 onClick={() => wmTrack("wm_site_footer_logo_click", { pathname })}
               >
-                <span className="font-display text-2xl">Within Market</span>
-                <span className="font-mono text-xs text-muted-foreground">TM</span>
+                <Image
+                  src={LOGO_SQUARE_SRC}
+                  alt="Within Market"
+                  width={LOGO_SQUARE_SIZE}
+                  height={LOGO_SQUARE_SIZE}
+                  className="h-36 w-36"
+                />
               </a>
 
               <p className="mb-8 max-w-xs leading-relaxed text-muted-foreground">
