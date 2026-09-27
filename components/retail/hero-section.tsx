@@ -51,7 +51,7 @@ export function HeroSection() {
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6 pt-32 pb-12 lg:px-12 lg:pt-40 lg:pb-16">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 pt-24 pb-12 lg:px-12 lg:pt-40 lg:pb-16">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}>
           <span className="inline-flex items-center gap-3 font-mono text-sm text-muted-foreground">
             <span className="h-px w-8 bg-foreground/30" />
