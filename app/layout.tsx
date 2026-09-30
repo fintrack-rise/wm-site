@@ -2,6 +2,7 @@ import React from "react"
 import type { Metadata } from "next"
 import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { MetaPixel } from "@/components/meta-pixel"
 import { HOME_DESCRIPTION, HOME_TITLE, SITE_NAME, SITE_URL } from "@/lib/site"
 import "./globals.css"
 
@@ -61,6 +62,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         {children}
+        <MetaPixel />
         <Analytics />
       </body>
     </html>
