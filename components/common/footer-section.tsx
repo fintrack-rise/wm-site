@@ -70,10 +70,46 @@ export function FooterSection() {
 
             <div>
               <h3 className="mb-6 text-sm font-medium">Company</h3>
-              <ContactUs
-                buttonLabel="Contact"
-                buttonClassName="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              />
+              <ul className="space-y-4">
+                <li>
+                  <a
+                    href="/support"
+                    onClick={() =>
+                      wmTrack("wm_site_footer_link_click", {
+                        pathname,
+                        category: "Company",
+                        label: "Support",
+                        href: "/support",
+                      })
+                    }
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Support
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/privacy"
+                    onClick={() =>
+                      wmTrack("wm_site_footer_link_click", {
+                        pathname,
+                        category: "Company",
+                        label: "Privacy",
+                        href: "/privacy",
+                      })
+                    }
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Privacy
+                  </a>
+                </li>
+                <li>
+                  <ContactUs
+                    buttonLabel="Contact"
+                    buttonClassName="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  />
+                </li>
+              </ul>
             </div>
           </div>
         </div>
